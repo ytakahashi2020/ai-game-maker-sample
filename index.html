@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sample 3D</title>
+<style>body{margin:0;overflow:hidden;background:#07070f;color:#fff;font-family:sans-serif}#ui{position:fixed;top:12px;left:12px}</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }</script>
+</head><body><div id="ui">AI Game Maker sample</div>
+<script type="module">
+import * as THREE from "three";
+const r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(innerWidth,innerHeight);document.body.appendChild(r.domElement);
+const s=new THREE.Scene(),c=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);c.position.z=4;
+s.add(new THREE.HemisphereLight(0xaaccff,0x221133,2));
+const m=new THREE.Mesh(new THREE.TorusKnotGeometry(1,.3,128,16),new THREE.MeshStandardMaterial({color:0x7c5cff,metalness:.4,roughness:.3}));s.add(m);
+addEventListener("resize",()=>{c.aspect=innerWidth/innerHeight;c.updateProjectionMatrix();r.setSize(innerWidth,innerHeight)});
+r.setAnimationLoop(t=>{m.rotation.x=t/1000;m.rotation.y=t/1500;r.render(s,c)});
+</script></body></html>
